@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happiest Bday Cindyy 🎀</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --rose: #F2A7C3;
+  --rose-light: #FDE8F1;
+  --rose-pale: #FDF4F8;
+  --lilac: #C9B8E8;
+  --lilac-light: #EDE8F8;
+  --peach: #F7C4A8;
+  --peach-light: #FEF0E8;
+  --text: #3D2B3D;
+  --text-soft: #8B7090;
+  --white: #FFFCFE;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--white);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* floating petals */
+.petal {
+  position: fixed;
+  pointer-events: none;
+  font-size: 1rem;
+  opacity: 0;
+  animation: petalFall linear infinite;
+  z-index: 0;
+}
+@keyframes petalFall {
+  0%   { transform: translateY(-10px) rotate(0deg) translateX(0); opacity: 0; }
+  10%  { opacity: 0.35; }
+  90%  { opacity: 0.2; }
+  100% { transform: translateY(100vh) rotate(360deg) translateX(40px); opacity: 0; }
+}
+
+/* ── SECTIONS ── */
+section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 24px;
+  z-index: 1;
+}
+
+/* section fade-in */
+.fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── HERO ── */
+#hero { background: var(--rose-pale); text-align: center; }
+
+.hero-deco {
+  font-size: 3.5rem;
+  margin-bottom: 20px;
+  display: block;
+  animation: gentleFloat 4s ease-in-out infinite;
+}
+@keyframes gentleFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.hero-sub {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: clamp(0.85rem, 2vw, 1rem);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--rose);
+  margin-bottom: 16px;
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3.2rem, 10vw, 7rem);
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+
+h1 em {
+  font-style: italic;
+  color: var(--rose);
+}
+
+.hero-name {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(2rem, 6vw, 4rem);
+  color: var(--lilac);
+  margin-bottom: 28px;
+}
+
+.hero-date {
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: var(--text-soft);
+  letter-spacing: 0.1em;
+}
+
+/* deco dots */
+.dot-row {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin: 24px 0;
+}
+.dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--rose);
+  opacity: 0.4;
+}
+.dot:nth-child(2) { background: var(--lilac); }
+.dot:nth-child(3) { background: var(--peach); }
+
+/* ── POEM SECTION ── */
+#poem { background: var(--white); }
+
+.poem-wrap {
+  max-width: 560px;
+  width: 100%;
+  text-align: center;
+}
+
+.section-label {
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--rose);
+  margin-bottom: 32px;
+}
+
+.poem-line {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  color: var(--text);
+  line-height: 2.2;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.poem-line.show { opacity: 1; transform: translateY(0); }
+
+.poem-accent {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
+  color: var(--lilac);
+}
+
+.poem-strong {
+  font-weight: 500;
+  color: var(--rose);
+}
+
+.poem-gap { height: 28px; }
+
+/* ── WISHES ── */
+#wishes {
+  background: var(--lilac-light);
+}
+
+.wishes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  max-width: 720px;
+  width: 100%;
+  margin-top: 32px;
+}
+
+.wish-card {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 28px 20px;
+  text-align: center;
+  border: 1.5px solid rgba(201,184,232,0.3);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  cursor: default;
+}
+.wish-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--lilac);
+}
+
+.wish-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.wish-text {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--text-soft);
+  line-height: 1.6;
+}
+
+/* ── CAKE ── */
+#cake { background: var(--peach-light); text-align: center; }
+
+.cake-wrap { margin: 28px 0 20px; }
+
+.cake-svg { cursor: pointer; transition: transform 0.25s ease; }
+.cake-svg:hover { transform: scale(1.03); }
+
+.flame { transform-origin: 50% 100%; animation: flicker 0.6s ease-in-out infinite alternate; }
+.flame:nth-child(2) { animation-delay: 0.1s; }
+.flame:nth-child(3) { animation-delay: 0.2s; }
+@keyframes flicker {
+  from { transform: scaleX(1) scaleY(1); }
+  to   { transform: scaleX(0.85) scaleY(0.9) translateY(1px); }
+}
+
+.cake-hint {
+  font-size: 0.82rem;
+  color: var(--text-soft);
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+
+.blow-btn {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 12px 30px;
+  border-radius: 50px;
+  border: 1.5px solid var(--peach);
+  background: var(--white);
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: 0.05em;
+}
+.blow-btn:hover { background: var(--peach); color: var(--white); border-color: var(--peach); }
+
+.cake-msg {
+  margin-top: 20px;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--peach);
+  min-height: 28px;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.cake-msg.show { opacity: 1; }
+
+/* ── FINAL ── */
+#final { background: var(--rose-pale); text-align: center; }
+
+.final-big {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  color: var(--text);
+  line-height: 1.25;
+  margin-bottom: 24px;
+}
+.final-big em { color: var(--rose); font-style: italic; }
+
+.final-card {
+  background: var(--white);
+  border-radius: 24px;
+  border: 1.5px solid var(--rose-light);
+  padding: 32px 36px;
+  max-width: 480px;
+  font-weight: 300;
+  font-size: 1rem;
+  line-height: 1.9;
+  color: var(--text-soft);
+  margin-bottom: 32px;
+}
+
+.final-card strong { font-weight: 500; color: var(--text); }
+
+.hearts {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  font-size: 1.3rem;
+  opacity: 0.7;
+  animation: heartbeat 2s ease-in-out infinite;
+}
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* scroll cue */
+.scroll-cue {
+  position: absolute;
+  bottom: 32px;
+  font-size: 0.8rem;
+  color: var(--text-soft);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  animation: cueFloat 2s ease-in-out infinite;
+}
+@keyframes cueFloat {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(6px); opacity: 0.3; }
+}
+
+/* nav dots */
+.nav {
+  position: fixed;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 100;
+}
+.ndot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--rose-light);
+  border: 1.5px solid var(--rose);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.ndot.on { background: var(--rose); transform: scale(1.3); }
+
+@media (max-width:600px) {
+  .wishes-grid { grid-template-columns: repeat(2,1fr); }
+  .final-card { padding: 24px 20px; }
+  .nav { right: 8px; }
+}
+</style>
+</head>
+<body>
+
+<!-- floating petals -->
+<div id="petals"></div>
+
+<!-- nav -->
+<div class="nav" id="nav">
+  <div class="ndot on" onclick="goto(0)"></div>
+  <div class="ndot" onclick="goto(1)"></div>
+  <div class="ndot" onclick="goto(2)"></div>
+  <div class="ndot" onclick="goto(3)"></div>
+  <div class="ndot" onclick="goto(4)"></div>
+</div>
+
+<!-- ══ HERO ══ -->
+<section id="s0">
+  <div class="fade-in visible" style="text-align:center">
+    <span class="hero-deco">🌸</span>
+    <p class="hero-sub">To the special one</p>
+    <h1>Happiest<br><em>Birthday</em></h1>
+    <p class="hero-name">My Loveliesssss Cindyyyy</p>
+    <div class="dot-row"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    <p class="hero-date">wish your day as beautiful as you are 🤍</p>
+  </div>
+  <p class="scroll-cue">scroll ↓</p>
+</section>
+
+<!-- ══ POEM ══ -->
+<section id="s1">
+  <div class="poem-wrap fade-in">
+    <p class="section-label">✦ A short message for you ✦</p>
+    <p class="poem-line">Hayyy Cinggg,</p>
+    <p class="poem-line">OMG my prettiest cindyy alreadyy 21! —</p>
+    <p class="poem-line">I hope you you see yourself the way i see you: amazing, incredible, kind, smart, funny, and wonderful💫 </p>
+    <p class="poem-line">I wish you feel so loved and celebrated today!</p>
+    <div class="poem-gap"></div>
+    <p class="poem-line poem-accent">Today is all about you.</p>
+    <div class="poem-gap"></div>
+    <p class="poem-line">I'm so thankful to have you in my life </p>
+    <p class="poem-line">thank you for all the laughter we've shared,</p>
+    <p class="poem-line">thank you for everything. 🌷</p>
+    <div class="poem-gap"></div>
+    <p class="poem-line poem-strong">May this year be the best one for you🤍</p>
+  </div>
+</section>
+
+<!-- ══ WISHES ══ -->
+<section id="s2">
+  <div class="fade-in" style="text-align:center;width:100%;max-width:720px">
+    <p class="section-label">✦ My wishes for you ✦</p>
+    <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(1.5rem,4vw,2.2rem);color:var(--text);margin-bottom:4px">I wish you alwayss...</p>
+    <div class="wishes-grid">
+      <div class="wish-card"><span class="wish-icon">💖</span><p class="wish-text">Always healthy everydayyy</p></div>
+      <div class="wish-card"><span class="wish-icon">🌟</span><p class="wish-text">May all your dreams come trueeee one by one</p></div>
+      <div class="wish-card"><span class="wish-icon">🦋</span><p class="wish-text">Live life freely and lightly</p></div>
+      <div class="wish-card"><span class="wish-icon">🍀</span><p class="wish-text">Surrounded by people who lovess you</p></div>
+      <div class="wish-card"><span class="wish-icon">✨</span><p class="wish-text">Shine in the way you love the most!</p></div>
+      <div class="wish-card"><span class="wish-icon">🌸</span><p class="wish-text">Your smile never fades</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CAKE ══ -->
+<section id="s3">
+  <div class="fade-in" style="text-align:center">
+    <p class="section-label">✦ blow the candles, Cinggg ✦</p>
+    <div class="cake-wrap">
+      <svg class="cake-svg" onclick="blow()" width="240" height="220" viewBox="0 0 240 220" xmlns="http://www.w3.org/2000/svg">
+        <!-- plate shadow -->
+        <ellipse cx="120" cy="206" rx="95" ry="10" fill="#F2A7C3" opacity="0.18"/>
+        <!-- base tier -->
+        <rect x="24" y="138" width="192" height="62" rx="14" fill="#F9D0E0"/>
+        <rect x="24" y="138" width="192" height="18" rx="0" fill="#F2A7C3"/>
+        <ellipse cx="24" cy="138" rx="0" ry="0"/>
+        <!-- base frosting drips -->
+        <ellipse cx="50"  cy="138" rx="11" ry="7" fill="#FFFAFC"/>
+        <ellipse cx="82"  cy="138" rx="11" ry="7" fill="#FFFAFC"/>
+        <ellipse cx="120" cy="138" rx="11" ry="7" fill="#FFFAFC"/>
+        <ellipse cx="158" cy="138" rx="11" ry="7" fill="#FFFAFC"/>
+        <ellipse cx="190" cy="138" rx="11" ry="7" fill="#FFFAFC"/>
+        <!-- base deco dots -->
+        <circle cx="66"  cy="165" r="4" fill="#C9B8E8"/>
+        <circle cx="98"  cy="178" r="4" fill="#F7C4A8"/>
+        <circle cx="130" cy="165" r="4" fill="#C9B8E8"/>
+        <circle cx="162" cy="178" r="4" fill="#F7C4A8"/>
+        <!-- top tier -->
+        <rect x="52" y="78" width="136" height="64" rx="12" fill="#EDE8F8"/>
+        <rect x="52" y="78" width="136" height="16" rx="0" fill="#C9B8E8"/>
+        <!-- top frosting drips -->
+        <ellipse cx="72"  cy="78" rx="10" ry="6" fill="#FAFAFF"/>
+        <ellipse cx="100" cy="78" rx="10" ry="6" fill="#FAFAFF"/>
+        <ellipse cx="120" cy="78" rx="10" ry="6" fill="#FAFAFF"/>
+        <ellipse cx="140" cy="78" rx="10" ry="6" fill="#FAFAFF"/>
+        <ellipse cx="168" cy="78" rx="10" ry="6" fill="#FAFAFF"/>
+        <!-- top deco -->
+        <circle cx="85"  cy="108" r="4" fill="#F2A7C3"/>
+        <circle cx="120" cy="118" r="4" fill="#F7C4A8"/>
+        <circle cx="155" cy="108" r="4" fill="#F2A7C3"/>
+        <!-- candles -->
+        <g id="cg">
+          <rect x="90"  y="54" width="8" height="24" rx="2" fill="#F2A7C3"/>
+          <ellipse class="flame" cx="94"  cy="50" rx="5" ry="7.5" fill="#FFD93D" id="f1"/>
+          <ellipse class="flame" cx="94"  cy="52" rx="2.5" ry="4" fill="#FFA07A"/>
+          <rect x="116" y="54" width="8" height="24" rx="2" fill="#C9B8E8"/>
+          <ellipse class="flame" cx="120" cy="50" rx="5" ry="7.5" fill="#FFD93D" id="f2"/>
+          <ellipse class="flame" cx="120" cy="52" rx="2.5" ry="4" fill="#FFA07A"/>
+          <rect x="142" y="54" width="8" height="24" rx="2" fill="#F7C4A8"/>
+          <ellipse class="flame" cx="146" cy="50" rx="5" ry="7.5" fill="#FFD93D" id="f3"/>
+          <ellipse class="flame" cx="146" cy="52" rx="2.5" ry="4" fill="#FFA07A"/>
+        </g>
+      </svg>
+    </div>
+    <p class="cake-hint">click cake or button play 🎂</p>
+    <button class="blow-btn" id="blowBtn" onclick="blow()">blow the candles 🌬️</button>
+    <p class="cake-msg" id="cakeMsg">may all your wishes come true, my loveeee 🌸</p>
+  </div>
+</section>
+
+<!-- ══ FINAL ══ -->
+<section id="s4">
+  <div class="fade-in" style="text-align:center">
+    <p class="section-label">✦ From me to you ✦</p>
+    <p class="final-big">Happiest 21s birthday,<br><em>Cindyy 🎀</em></p>
+    <div class="final-card">
+      On this special day,<br>
+      I hope you know how precious you are.<br><br>
+      <strong>!Keep being your amazing self!</strong><br>
+      This year will definitely be more beautiful than the last💕
+    </div>
+    <div class="hearts">🌸 💜 🧡 💛 🌸</div>
+  </div>
+</section>
+
+<script>
+const secs = document.querySelectorAll('section');
+const dots = document.querySelectorAll('.ndot');
+
+function goto(i) { secs[i].scrollIntoView({ behavior: 'smooth' }); }
+
+// petals
+const petalEmojis = ['🌸','✿','꩜','•'];
+const pc = document.getElementById('petals');
+for (let i = 0; i < 14; i++) {
+  const p = document.createElement('div');
+  p.className = 'petal';
+  p.textContent = ['🌸','🌺','✦','·'][i % 4];
+  p.style.cssText = `left:${Math.random()*100}%;font-size:${0.7+Math.random()*0.8}rem;animation-duration:${9+Math.random()*8}s;animation-delay:${Math.random()*10}s;`;
+  pc.appendChild(p);
+}
+
+// scroll observer
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const idx = [...secs].indexOf(e.target);
+    dots.forEach((d,i) => d.classList.toggle('on', i === idx));
+    e.target.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+    e.target.querySelectorAll('.poem-line').forEach((l,i) => setTimeout(() => l.classList.add('show'), i*100+100));
+    e.target.querySelectorAll('.wish-card').forEach((c,i) => {
+      c.style.opacity='0'; c.style.transform='translateY(20px)'; c.style.transition='all 0.5s ease';
+      setTimeout(()=>{c.style.opacity='1';c.style.transform='translateY(0)';}, i*80+200);
+    });
+  });
+}, { threshold: 0.2 });
+secs.forEach(s => io.observe(s));
+
+// cake
+let blown = false;
+function blow() {
+  if (blown) {
+    document.querySelectorAll('.flame').forEach(f => { f.style.opacity='1'; f.style.transform=''; });
+    document.getElementById('blowBtn').textContent = 'tiup lilin 🌬️';
+    document.getElementById('cakeMsg').classList.remove('show');
+    blown = false; return;
+  }
+  blown = true;
+  document.querySelectorAll('.flame').forEach((f,i) => setTimeout(() => {
+    f.style.transition='all 0.3s'; f.style.opacity='0'; f.style.transform='scaleY(0)';
+  }, i*80));
+  setTimeout(() => {
+    document.getElementById('cakeMsg').classList.add('show');
+    document.getElementById('blowBtn').textContent = 'relight the candles 🕯️';
+    sparkle();
+  }, 500);
+}
+
+function sparkle() {
+  const emojis = ['✨','💖','🌸','⭐','💜'];
+  for (let i=0;i<20;i++) {
+    const el = document.createElement('div');
+    el.style.cssText=`position:fixed;pointer-events:none;z-index:999;font-size:1.2rem;left:${30+Math.random()*40}%;top:${20+Math.random()*40}%;opacity:1;transition:all 1.5s ease;`;
+    el.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+    document.body.appendChild(el);
+    setTimeout(()=>{el.style.transform=`translateY(-${40+Math.random()*60}px) scale(0)`;el.style.opacity='0';},50);
+    setTimeout(()=>el.remove(),1800);
+  }
+}
+</script>
+</body>
+</html>
